@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var MaxQueue = function () {
+      this.data = []
+    };
+
+    /**
+     * @return {number}
+     */
+    MaxQueue.prototype.max_value = function () {
+      if(Math.max.apply(null, this.data) == -Infinity) return null
+      return Math.max.apply(null, this.data)
+    };  
+
+    /** 
+     * @param {number} value
+     * @return {void}
+     */
+    MaxQueue.prototype.push_back = function (value) {
+      this.data.push(value)
+      return null
+    };
+
+    MaxQueue.prototype.pop_front = function () {
+      return this.data.pop() ? this.data.pop() : -1
+    };
+
+    let queue = new MaxQueue()    
+    console.log(queue.max_value());
+    console.log(queue.push_back(1));
+    console.log(queue.push_back(2));
+    console.log(queue.max_value());
+    console.log(queue.pop_front());
+    console.log(queue.max_value());
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    class Stack {
+      constructor() {
+        this.count = 0
+        this.data = {}
+      }
+
+      push(value) {
+        this.data[this.count] = value
+        this.count++
+      }
+
+      shift() {
+        this.count--
+        let value = this.data[this.count]
+        if (value) {
+          delete this.data[this.count]
+          return value
+        } else {
+          return -1
+        }
+      }
+    }
+
+    let stackOne = new Stack()
+    let stackTwo = new Stack()
+
+    var CQueue = function () {
+      this.stackOne = []
+      this.stackTwo = []
+    };
+
+    /** 
+     * @param {number} value
+     * @return {void}
+     */
+    CQueue.prototype.appendTail = function (value) {
+      this.stackOne.push(value)
+    };
+
+    /**
+     * @return {number}
+     */
+    CQueue.prototype.deleteHead = function () {
+      if(this.stackTwo.length) return this.stackTwo.pop()
+      while(this.stackOne.length){
+        this.stackTwo.push(this.stackOne.pop())
+      }
+      return this.stackTwo.pop() !== undefined ?  this.stackTwo.shift() : -1
+    };
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 回溯算法的概念  从头开始尝试每一种可能
+
+    // 给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。candidates 中的数字在组合只能使用1次
+    // 例1 输入: candidates = [10,1,2,7,6,1,5], target = 8,
+    // 所求解集为:
+    // [
+    //   [1, 7],
+    //   [1, 2, 5],
+    //   [2, 6],
+    //   [1, 1, 6]
+    // ]
+
+    function combinationSum(candidates, target){
+      let res = []
+      let sum = 0
+      candidates = candidates.sort((a,b) => {return a - b})
+      let dfs = (start, temp) => {
+        if(sum >= target){
+          if(sum == target){
+            res.push(temp.slice())
+          }
+          return
+        }
+
+        for(let i = start; i < candidates.length; i++){
+          if(i > start && candidates[i-1] == candidates[i]) continue;
+          sum += candidates[i]
+          temp.push(candidates[i])
+          dfs(i+1, temp)
+          sum -= candidates[i]
+          temp.pop()
+        }
+      }
+
+      dfs(0, [])
+
+      return res
+    }
+    
+    combinationSum([10,1,2,7,6,1,5], 8)
+    console.log(combinationSum([10,1,2,7,6,1,5], 8), 22);
+  </script>
+</body>
+
+</html>
