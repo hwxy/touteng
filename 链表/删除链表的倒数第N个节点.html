@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
+    // 给定一个链表: 1->2->3->4->5, 和 n = 2.
+    // 当删除了倒数第二个节点后，链表变为 1->2->3->5.
+  /**
+  * Definition for singly-linked list.
+  * function ListNode(val) {
+  *     this.val = val;
+  *     this.next = null;
+  * }
+  */
+  /**
+  * @param {ListNode} head
+  * @param {number} n
+  * @return {ListNode}
+  */  
+  function ListNode(val) {
+    this.val = val;
+    this.next = null;
+  }  
+  let head = new ListNode(1)  
+  head.next  = new ListNode(2)  
+  head.next.next = new ListNode(3)  
+  head.next.next.next = new ListNode(4)  
+  head.next.next.next.next = new ListNode(5)
+
+  // 双指针
+  var removeNthFromEnd = function(head, n) {
+    
+    // let count = 0
+    // let current = head
+    // while(current){
+    //   count++
+    //   current = current.next
+    // }
+
+    // let num = count - n
+    // if(num == 0){
+    //   return head.next
+    // } else {
+    //   let current = head
+    //   let pre = current
+    //   let after = null
+    //   while(num){
+    //     num--
+    //     pre = current
+    //     current = current.next
+    //     after = current.next ? current.next : null
+    //   }
+    //   pre.next = after
+    //   return head
+    // }   
+    let fast = head, slow = head
+    // 快先走 n 步
+    while(--n) {
+      fast = fast.next
+    }
+    if(!fast.next) return head.next
+    fast = fast.next
+    // fast、slow 一起前进
+    while(fast && fast.next) {
+        fast = fast.next
+        slow = slow.next
+    }
+    slow.next = slow.next.next
+    return head 
+  };
+
+  
+  console.log(removeNthFromEnd(head, 2));
+  </script>
+</body>
+</html>
