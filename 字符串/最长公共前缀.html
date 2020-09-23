@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 编写一个函数来查找字符串数组中的最长公共前缀。
+    // 如果不存在公共前缀，返回空字符串 ""。
+    // 输入: ["flower","flow","flight"]
+    // 输出: "fl" 
+    // 输入: ["dog","racecar","car"]
+    // 输出: ""
+    // 解释: 输入不存在公共前缀。
+
+    /**
+     * @param {string[]} strs
+     * @return {string}
+     */
+    var longestCommonPrefix = function (strs) {
+      if(strs.length == 0) return ''
+      if(strs.length == 1) return strs[0]
+      let str = ''
+      let i = 0
+      while(i < strs.length - 1){
+        let one = i == 0 ? strs[i] : str
+        let two = strs[i+1]
+        let j = 0
+        let s = ''
+        while(j < one.length){
+          if(one[j] == two[j]){
+            s += one[j]
+          } else {
+            str = s
+            break
+          }
+          j++
+          if(j == one.length){
+            str = s
+          }
+        }
+        if(!str) break
+        i++
+      }
+
+      return str
+    };
+
+    console.log(longestCommonPrefix(["flower","flow","floght"]), longestCommonPrefix(["dog","racecar","car"]));
+  </script>
+</body>
+
+</html>
