@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 阶乘后的零
+    // 给定一个整数 n，返回 n! 结果尾数中零的数量。
+    // 输入: 3
+    // 输出: 0
+    // 解释: 3! = 6, 尾数中没有零。
+    // 输入: 5
+    // 输出: 1
+    // 解释: 5! = 120, 尾数中有 1 个零.
+    /**
+     * @param {number} n
+     * @return {number}
+     */
+    var trailingZeroes = function (n) {
+      if (n < 5) {
+        return 0;
+      } else {
+        let k = Math.floor(n / 5);
+        return k + trailingZeroes(k);
+      }
+    };
+
+    console.log(trailingZeroes(100));
+  </script>
+</body>
+
+</html>
