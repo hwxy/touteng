@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 输入: "()"
+    // 输出: true
+
+    // 输入: "()[]{}"
+    // 输出: true
+
+    // 输入: "(]"
+    // 输出: false
+
+    // 输入: "([)]"
+    // 输出: false
+
+    /**
+     * @param {string} s
+     * @return {boolean}
+     */
+    // '('，')'，'{'，'}'，'['，']' 的字符串
+    var isValid = function (s) {
+      const n = s.length;
+      if (n % 2 === 1) {
+        return false;
+      }
+
+      let obj = {
+        ')' : '(',
+        '}' : '{',
+        ']' : '['
+      }
+
+      let stackOne = []
+      let isValid = true
+      for(let i = 0; i < s.length; i++){
+        if(s[i] in obj){
+          if(stackOne.pop() != obj[s[i]]){
+            return false
+          }
+        } else {
+          stackOne.push(s[i])
+        }
+      }
+
+      if(stackOne.length) return false
+      return true
+
+    };
+    // "(("
+    console.log(isValid("()"), isValid("(("));
+  </script>
+</body>
+
+</html>

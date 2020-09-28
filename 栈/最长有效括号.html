@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 给定一个只包含 '(' 和 ')' 的字符串，找出最长的包含有效括号的子串的长度。
+    // 输入: "(()"
+    // 输出: 2
+    // 解释: 最长有效括号子串为 "()"
+    // 输入: ")()())"
+    // 输出: 4
+    // 解释: 最长有效括号子串为 "()()"
+
+    // 输出: 6
+    // 解释: 最长有效括号子串为 "()(())"
+
+    /**
+     * @param {string} s
+     * @return {number}
+     */
+    var longestValidParentheses = function (s) {
+      let maxLen = 0;
+      const stack = [];
+      stack.push(-1);
+      for (let i = 0; i < s.length; i++) {
+        const c = s[i];
+        if (c == '(') { // 左括号的索引，入栈
+          stack.push(i);
+        } else { // 遍历到右括号想·
+          stack.pop(); // 栈顶的左括号被匹配，出栈
+          if (stack.length) { // 栈未空
+            const curMaxLen = i - stack[stack.length - 1]; // 计算有效连续长度
+            maxLen = Math.max(maxLen, curMaxLen); // 挑战最大值
+          } else { // 栈空了
+            stack.push(i); // 入栈充当参照
+          }
+        }
+      }
+      return maxLen;
+    };
+
+    console.log(longestValidParentheses("()(())"));
+  </script>
+</body>
+
+</html>

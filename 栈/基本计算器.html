@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 实现一个基本的计算器来计算一个简单的字符串表达式的值。
+    // 字符串表达式可以包含左括号 ( ，右括号 )，加号 + ，减号 -，非负整数和空格  。
+    // 输入: "1 + 1"
+    // 输出: 2
+    // 输入: " 2-1 + 2 "
+    // 输出: 3
+    // 输入: "(1+(4+5+2)-3)+(6+8)"
+    // 输出: 23
+    var calculate = function (s) {
+      let sum = 0,
+        stack = [],
+        sign = 1,
+        i = 0,
+        n = s.length;
+
+
+    function isNumber(n) {
+      n = Number(n);
+      return typeof n === 'number' && !isNaN(n);
+    }
+    
+      while (i < n) {
+        let c = s.charAt(i);
+        if (c === ' ') {
+          i++;
+        } else if (c === '-') {
+          sign = -1;
+          i++;
+        } else if (c === '+') {
+          sign = 1;
+          i++;
+        } else if (c === '(') {
+          stack.push(sum, sign);
+          sum = 0;
+          sign = 1;
+          i++;
+        } else if (c === ')') {
+          sum = sum * stack.pop() + stack.pop();
+          i++;
+        } else {
+          let temp = c;
+          i++;
+          while (i < n && isNumber(s.charAt(i))) {
+            temp += s.charAt(i);
+            i++;
+          }
+          sum += Number(temp) * sign;
+        }
+      }
+
+
+      return sum;
+    };
+
+
+
+    console.log(calculate("(1+(4+5+2)-3)+(6+8)"), calculate("2147483647"));
+  </script>
+</body>
+
+</html>
