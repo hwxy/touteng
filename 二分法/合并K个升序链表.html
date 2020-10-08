@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 给你一个链表数组，每个链表都已经按升序排列。
+    // 请你将所有链表合并到一个升序链表中，返回合并后的链表。
+    // 输入：lists = [[1,4,5],[1,3,4],[2,6]]
+    // 输出：[1,1,2,3,4,4,5,6]
+    // 解释：链表数组如下：
+    // [
+    //   1->4->5,
+    //   1->3->4,
+    //   2->6
+    // ]
+    // 将它们合并到一个有序链表中得到。
+    // 1->1->2->3->4->4->5->6
+
+    // 输入：lists = []
+    // 输出：[]
+
+    // 输入：lists = [[]]
+    // 输出：[]
+
+    function ListNode(val) {
+      this.val = val;
+      this.next = null;
+    }
+
+    let treeOne = new ListNode(1)
+
+    treeOne.next = new ListNode(4)
+    treeOne.next.next = new ListNode(5)
+
+    let treeTwo = new ListNode(1)
+    treeTwo.next = new ListNode(3)
+    treeTwo.next.next = new ListNode(4)
+
+    let treeThree = new ListNode(2)
+    treeThree.next = new ListNode(6)
+
+    /**
+     * Definition for singly-linked list.
+     * function ListNode(val, next) {
+     *     this.val = (val===undefined ? 0 : val)
+     *     this.next = (next===undefined ? null : next)
+     * }
+     */
+    /**
+     * @param {ListNode[]} lists
+     * @return {ListNode}
+     */
+ 
+    var mergeKLists = function (lists) {
+      if(!lists.length) return null
+      if(lists.length == 1) return lists[0]
+      let concatList = (l1, l2) => {
+        if (l1 === null) {
+          return l2;
+        } else if (l2 === null) {
+          return l1;
+        } else if (l1.val < l2.val) {
+          l1.next = concatList(l1.next, l2);
+          return l1;
+        } else {
+          l2.next = concatList(l1, l2.next);
+          return l2;
+        }
+      }
+      let middle = Math.floor(lists.length / 2)
+      let left = lists.slice(0, middle)
+      let right = lists.slice(middle)
+      if(left.length >= 2) {
+        left = [mergeKLists(left)]
+      } 
+      if(right.length >= 2) {
+        right = [mergeKLists(right)]
+      }
+      return concatList(left[0], right[0])
+    };
+    console.log(mergeKLists([null, treeTwo, null, treeThree]));
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
+    // 输入：1->2->4, 1->3->4
+    // 输出：1->1->2->3->4->4
+    /**
+     * Definition for singly-linked list.
+     * function ListNode(val, next) {
+     *     this.val = (val===undefined ? 0 : val)
+     *     this.next = (next===undefined ? null : next)
+     * }
+     */
+    /**
+     * @param {ListNode} l1
+     * @param {ListNode} l2
+     * @return {ListNode}
+     */
+
+    function ListNode(val, next) {
+      this.val = val
+      this.next = null
+    }
+
+    let l1 = new ListNode(1)
+
+    l1.next = new ListNode(2)
+
+    l1.next.next = new ListNode(4)
+
+
+    let l2 = new ListNode(1)
+
+    l2.next = new ListNode(3)
+
+    l2.next.next = new ListNode(4)
+
+    var mergeTwoLists = function (l1, l2) {
+      // if(!l1 || !l2) return l1 || l2
+
+      // let currentOne = l1
+      // let currentTwo = l2
+      // let currentThree = null
+      // let l3 = null
+      // while(currentOne) {
+      //   if(!currentTwo) break
+      //   let valueOne = currentOne.val
+      //   let valueTwo = currentTwo.val
+      //   if(valueOne >= valueTwo){
+      //     let node = new ListNode(valueTwo)
+      //     if(!l3){
+      //       l3 = node
+      //       currentThree = l3
+      //     } else {
+      //       currentThree.next = node
+      //       currentThree = node
+      //     }
+      //     if(valueOne == valueTwo){
+      //       currentOne = currentOne.next
+      //       currentThree.next = new ListNode(valueOne)
+      //       currentThree = currentThree.next
+      //     }
+      //     currentTwo = currentTwo.next
+      //   } else {
+      //     let node = new ListNode(valueOne)
+      //     if(!l3){
+      //       l3 = node
+      //       currentThree = l3
+      //     } else {
+      //       currentThree.next = node
+      //       currentThree = node
+      //     }
+      //     currentOne = currentOne.next  
+      //   }
+
+      //   if(!currentOne) {
+      //     currentThree.next = currentTwo
+      //   }
+
+      //   if(!currentTwo) {
+      //     currentThree.next = currentOne
+      //   }
+      // } 
+      // return l3
+      if (l1 === null) {
+        return l2;
+      } else if (l2 === null) {
+        return l1;
+      } else if (l1.val < l2.val) {
+        l1.next = mergeTwoLists(l1.next, l2);
+        return l1;
+      } else {
+        l2.next = mergeTwoLists(l1, l2.next);
+        return l2;
+      }
+    };
+
+    console.log(mergeTwoLists(l1, l2));
+  </script>
+</body>
+
+</html>

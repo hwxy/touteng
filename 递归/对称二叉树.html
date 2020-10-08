@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 给定一个二叉树，检查它是否是镜像对称的。
+    // 例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
+    //   1
+    //   / \
+    //   2  2
+    // / \  / \
+    // 3  4 4  3
+    // 但是下面这个 [1,2,2,null,3,null,3] 则不是镜像对称的:
+    //   1
+    //  / \
+    // 2   2
+    //  \   \
+    //  3    3
+    /**
+     * Definition for a binary tree node.
+     * function TreeNode(val) {
+     *     this.val = val;
+     *     this.left = this.right = null;
+     * }
+     */
+
+     function TreeNode (val) {
+        this.val = val;
+        this.left = this.right = null;
+     }  
+
+    let tree = new TreeNode(2)
+    tree.left = new TreeNode(3)
+    tree.right = new TreeNode(3)
+    tree.left.left = new TreeNode(4)
+    tree.left.right = new TreeNode(5)
+    tree.right.left = new TreeNode(5)
+    tree.right.right = new TreeNode(4)
+
+    tree.left.left.left = null
+    tree.left.left.right = null
+    tree.right.left.left = new TreeNode(8)
+    tree.right.left.right = new TreeNode(9)
+
+    tree.right.right.left = new TreeNode(9)
+    tree.right.right.right = new TreeNode(8)
+
+    // [1,2,2,null,3,3]
+
+    // [2,3,3,4,5,5,4,null,null,8,9,9,8]
+
+    // tree.right = new TreeNode(2)
+    // tree.left.left = new TreeNode(3)
+    // tree.left.right = new TreeNode(4)
+    // tree.right.left = new TreeNode(4)
+    // tree.right.right = new TreeNode(3)
+    /**
+     * @param {TreeNode} root
+     * @return {boolean}
+     */
+    // var isSymmetric = function (root) {
+    //   if(!root) return true
+    //   let isSymmetric = true
+    //   let left = root.left
+    //   let right = root.right
+    //   if(left && right && left.val != right.val) return false
+    //   if(!left && !right) return true
+    //   if(!left || !right) return false
+
+    //   function equal(rootOne, rootTwo){
+    //     if(!rootOne && !rootTwo) return true
+    //     let oneLeft =  rootOne ? rootOne.left : null
+    //     let oneRight = rootOne ? rootOne.right : null
+    //     let twoLeft = rootTwo ? rootTwo.left : null
+    //     let twoRight = rootTwo ? rootTwo.right : null
+
+    //     if(oneLeft && twoRight && oneLeft.val != twoRight.val){
+    //       return false
+    //     }
+
+    //     if((!twoRight || !oneLeft) && oneLeft != twoRight){
+    //       return false
+    //     }
+
+
+    //     if(oneRight && twoLeft && oneRight.val != twoLeft.val){
+    //       return false
+    //     }
+
+    //     if((!twoLeft || !oneRight) && oneRight != twoLeft){
+    //       return false
+    //     }
+
+    //     return equal(oneLeft, oneRight) && equal(twoLeft, twoRight)
+    //   }
+    //   isSymmetric = equal(left, right)
+    //   return isSymmetric
+    // };
+    // console.log(tree, 2);
+    // console.log(isSymmetric(tree));
+
+    var isSymmetric = function(root){
+      let check = (p, q) => {
+      if (!p && !q) return true;
+      if (!p || !q) return false;
+       return p.val === q.val && check(p.left, q.right) && check(p.right, q.left);
+      }
+      return check(root, root);
+    };
+
+  </script>
+</body>
+
+</html>
