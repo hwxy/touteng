@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
+    // 输入：n = 3
+    // 输出：[
+    //       "((()))",
+    //       "(()())",
+    //       "(())()",
+    //       "()(())",
+    //       "()()()"
+    //     ]    
+    /**
+     * @param {number} n
+     * @return {string[]}
+     */
+    var generateParenthesis = function (n) {
+      let candidates = Array.from({
+        length: n * 2
+      }, () => (['(', ')']))
+
+      let isValid = (arr) => {
+        let obj = {
+          '(' : ')'
+        }
+        let s = []
+        for(let j = 0; j < arr.length; j++){
+          if(arr[j] in obj){
+            s.push('(')
+          } else {
+            let pop = s.pop()
+            if(pop != '('){
+              return false
+            }
+          }
+        }
+        if(s.length) return false
+        return true
+      }
+
+      let collection = []
+      let dfs = (start, temp) => {
+        if (temp.length == n * 2 && isValid(temp)) {
+          collection.push(temp.slice().join(''))
+          return
+        }
+
+        for(let i = start; i < candidates.length; i++){
+          temp.push(candidates[i][0]); // 加入“部分解”
+          dfs(i + 1, temp);             // 往下递归，继续选择，注意是i，不是i+1
+          temp.pop();               // 撤销选择
+          temp.push(candidates[i][1]); // 加入“部分解”
+          dfs(i + 1, temp);             // 往下递归，继续选择，注意是i，不是i+1
+          temp.pop();
+        }
+      }
+
+      dfs(0, [])
+      return collection
+    };
+
+    let isValid = (arr) => {
+        let obj = {
+          '(' : ')'
+        }
+        let s = []
+        for(let j = 0; j < arr.length; j++){
+          if(arr[j] in obj){
+            s.push('(')
+          } else {
+            let pop = s.pop()
+            if(pop != '('){
+              return false
+            }
+          }
+        }
+        if(s.length) return false
+        return true
+      }
+    // console.log(isValid(['(', ')']));  
+    console.log(generateParenthesis(3));
+  </script>
+</body>
+
+</html>

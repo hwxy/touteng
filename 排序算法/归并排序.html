@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function swap(arr, n, m) {
+      [arr[n], arr[m]] = [arr[m], arr[n]]
+    }
+
+    function merge(left, right) {
+      let i = 0; // {6} 
+      let j = 0;
+      const result = [];
+      while (i < left.length && j < right.length) { // {7} 
+        result.push(
+          left[i] < right[j] ? left[i++] : right[j++]
+        ); // {8} 
+      }
+      return result.concat(i < left.length ? left.slice(i) : right.slice(j)); // {9}
+    }
+
+    function mergeSort(arr) {
+      let length = arr.length
+      if (length > 1) {
+        let middle = Math.floor(length / 2)
+        let left = mergeSort(arr.slice(0, middle))
+        let right = mergeSort(arr.slice(middle))
+        arr = merge(left, right)
+      }
+      return arr
+    }
+
+    let arr = [9, 4, 6, 7, 8]
+
+    console.log(mergeSort(arr));
+  </script>
+</body>
+
+</html>

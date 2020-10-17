@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function swap(arr, n, m) {
+      [arr[n], arr[m]] = [arr[m], arr[n]]
+    }
+
+    function insertionSort(arr) {
+      const {
+        length
+      } = array; // {1} 
+      let temp;
+      for (let i = 1; i < length; i++) { // {2} 
+        let j = i; // {3} 
+        temp = arr[i]; // {4} 
+        while (j > 0 && arr[j - 1] > temp) { // {5} 
+          arr[j] = arr[j - 1]; // {6} 
+          j--;
+        }
+        arr[j] = temp; // {7} 
+      }
+      return array;
+    }
+
+    let arr = [9, 4, 6, 7, 8]
+
+    console.log(insertionSort(arr));
+  </script>
+</body>
+
+</html>

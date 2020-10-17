@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .father{
+    width: 100px;
+    height: 400px;
+    background: yellow;
+  }
+  .father::before{
+    content: '';
+    height: 100%;
+    width: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .child{
+    display: inline;
+    /* width: 100px;
+    height: 200px; */
+    /* vertical-align: middle; */
+    color: black;
+  }
+</style>
+<body>
+  <div class="father">
+    <span>123</span>
+  </div>
+  <script>
+    function minCoinChange(coins, amount) {
+      const change = [];
+      let total = 0;
+      for (let i = coins.length; i >= 0; i--) { // {1} 
+        const coin = coins[i];
+        while (total + coin <= amount) { // {2} 
+          change.push(coin); // {3} 
+          total += coin; // {4} 
+        }
+      }
+      return change;
+    }
+    console.log(minCoinChange([1, 5, 10, 25], 36));
+  </script>
+</body>
+
+</html>
