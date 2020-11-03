@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
+    // 在杨辉三角中，每个数是它左上方和右上方的数的和。
+
+    // 输入: 5
+    // 输出: [
+    //   [1],
+    //   [1, 1],
+    //   [1, 2, 1],
+    //   [1, 3, 3, 1],
+    //   [1, 4, 6, 4, 1]
+    // ]
+
+    /**
+     * @param {number} numRows
+     * @return {number[][]}
+     */
+    var generate = function (numRows) {
+      if(numRows == 0) return []
+      let collection = []
+      for(let i = 0; i < numRows; i++){
+        collection[i] = Array(i+1).fill(1)
+      }
+      if(numRows <= 2) return collection
+      for(let j = 2; j < numRows; j++){
+        let tmp = collection[j]
+        for(let k = 1; k < tmp.length - 1; k++){
+          collection[j][k] = collection[j - 1][k] + collection[j - 1][k-1]
+        }
+      }
+      return collection
+    };
+
+    let grid = [
+      [1],
+      [1, 1],
+      [1, 2, 1],
+      [1, 3, 3, 1],
+      [1, 4, 6, 4, 1]
+    ]
+
+    console.log(generate(5));
+  </script>
+</body>
+
+</html>
