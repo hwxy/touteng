@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let COMPARE = {
+      BIG: 1,
+      SMALL: -1
+    }
+    let compareFunc = (a, b) => {
+      return a - b > 0 ? COMPARE.BIG : COMPARE.SMALL
+    }
+
+    class Node{
+      constructor(value){
+        this.val = value
+        this.left = null
+        this.right = null
+      }
+    }
+
+    class Tree{
+      constructor(){
+        this.root = null
+      }
+
+      insert(value){
+        this.root = this.insertNode(this.root, value)
+      }
+
+      middleSort(node, func){
+        if(!node) return
+        this.middleSort(node.left, func)
+        func(node)
+        this.middleSort(node.right, func)
+      }
+
+      middleSort(node, func){
+        if(!node) return
+        this.middleSort(node.left, func)
+        func(node)
+        this.middleSort(node.right, func)
+      }
+
+      preSort(){
+        if(!node) return
+        func(node)
+        this.preSort(node.left, func)
+        this.preSort(node.right, func)
+      }
+
+      afterSort(){}
+
+      insertNode(node, value){
+        if(node && compareFunc(node.value, value) == COMPARE.BIG){
+          let left = node.left
+          node.left = this.insertNode(left, value)
+          return node
+        } else if(node && compareFunc(node.value, value) == COMPARE.SMALL){
+          let right = node.right
+          node.right = this.insertNode(right, value)
+          return node
+        } else {
+          return new Node(value)
+        }
+      }
+    }
+
+    let tree = new Node(1)
+    tree.left = new Node(2)
+    tree.right = new Node(3)
+    tree.left.left = new Node(4)
+    tree.right.right = new Node(5)
+    var levelOrder = function(root) {
+      // if(!root) return 
+      // let collectionOne = [[]]
+      // let nodes = [root]
+      // let node = root
+      // node.index = 0
+      // while(node = nodes.shift()){
+      //   let arr = collectionOne[node.index]
+      //   let value = node.val
+      //   arr.push(value)
+      //   let left = node.left
+      //   let right = node.right
+      //   if(left){
+      //     left.index = node.index + 1
+      //     nodes.push(left)
+      //   }
+      //   if(right){
+      //     right.index = node.index + 1
+      //     nodes.push(right)
+      //   }
+      //   if(!collectionOne[node.index + 1] && (left || right)){
+      //     collectionOne[node.index + 1] = []
+      //   }
+      // return collectionOne
+      const ret = [];
+      if (!root) {
+          return ret;
+      }
+      const q = [];
+      q.push(root);
+      while (q.length !== 0) {
+        const currentLevelSize = q.length;
+        ret.push([]);
+        for (let i = 1; i <= currentLevelSize; ++i) {
+            const node = q.shift();
+            ret[ret.length - 1].push(node.val);
+            if (node.left) q.push(node.left);
+            if (node.right) q.push(node.right);
+        }
+      } 
+      return ret;
+    };
+
+    
+    console.log(levelOrder(tree));
+    // tree.middleSort(tree.root, (node) => {
+    //   console.log(node.value)
+    // })
+  </script>
+</body>
+</html>
