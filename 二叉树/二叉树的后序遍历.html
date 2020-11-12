@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let COMPARE = {
+      BIG: 1,
+      SMALL: -1
+    }
+    let compareFunc = (a, b) => {
+      return a - b > 0 ? COMPARE.BIG : COMPARE.SMALL
+    }
+
+    class Node{
+      constructor(value){
+        this.value = value
+        this.left = null
+        this.right = null
+      }
+    }
+
+    class Tree{
+      constructor(){
+        this.root = null
+      }
+
+      insert(value){
+        this.root = this.insertNode(this.root, value)
+      }
+
+      middleSort(node, func){
+        if(!node) return
+        this.middleSort(node.left, func)
+        func(node)
+        this.middleSort(node.right, func)
+      }
+
+      preSort(){}
+
+      afterSort(){}
+
+      insertNode(node, value){
+        if(node && compareFunc(node.value, value) == COMPARE.BIG){
+          let left = node.left
+          node.left = this.insertNode(left, value)
+          return node
+        } else if(node && compareFunc(node.value, value) == COMPARE.SMALL){
+          let right = node.right
+          node.right = this.insertNode(right, value)
+          return node
+        } else {
+          return new Node(value)
+        }
+      }
+    }
+
+    let tree = new Tree()
+    tree.insert(1)
+    tree.insert(2)
+    tree.insert(3)
+    console.log(tree);
+    tree.middleSort(tree.root, (node) => {
+      console.log(node.value)
+    })
+  </script>
+</body>
+</html>
