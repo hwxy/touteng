@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+  //  反转一个单链表。
+  //  输入: 1->2->3->4->5->NULL
+  //  输出: 5->4->3->2->1->NULL
+
+    function ListNode(val) {
+      this.val = val;
+      this.next = null;
+    }
+    let head = new ListNode(1)
+    head.next = new ListNode(2)
+    head.next.next = new ListNode(3)
+    head.next.next.next = new ListNode(4)
+    head.next.next.next.next = new ListNode(5)
+    /**
+     * @param {ListNode} head
+     * @param {number} k
+     * @return {ListNode}
+     */
+    var reverseList = function (head) {
+      let [prev, curr] = [null, head];
+      while (curr) {
+        let tmp = curr.next;    // 1. 临时存储当前指针后续内容
+        curr.next = prev;       // 2. 反转链表
+        prev = curr;            // 3. 接收反转结果
+        curr = tmp;             // 4. 接回临时存储的后续内容
+      }
+      return prev;
+    }
+
+    
+    console.log(reverseList(head));
+  </script>
+</body>
+
+</html>

@@ -40,43 +40,41 @@
      * @return {ListNode}
      */
     
-    var reverseKGroup = function (head, k) {
-      const hair = new ListNode(0);
-      hair.next = head;
-      let pre = hair;
+    var reverseKGroup = (head, k) => {
+      const hair = new ListNode(0)
+      hair.next = head
+      let pre = hair
 
-      const myReverse = (head, tail) => {
-      let prev = tail.next; // 5
-      let p = head;
-      while (prev !== tail) {
-        const nex = p.next; // 3-5
-        p.next = prev; // 2,1,5
-        prev = p; // 2,1,5
-        p = nex; // 3-5
+      let myReverse = (head, tail) => {
+        let prev = tail.next;
+        let p = head;
+        while (prev !== tail) {
+          const nex = p.next;
+          p.next = prev;
+          prev = p;
+          p = nex;
+        }
+        return [tail, head];
       }
-      return [tail, head];
-    }
 
-      while (head) {
+      while(head){
         let tail = pre;
-        // 查看剩余部分长度是否大于等于 k
-        for (let i = 0; i < k; ++i) {
-          tail = tail.next;
-          if (!tail) {
-            return hair.next;
+        for(let i = 0; i < k; i++){
+          tail = tail.next
+          if(!tail){
+            return hair.next
           }
         }
         
         const nex = tail.next;
-        [head, tail] = myReverse(head, tail);
 
-        // 把子链表重新接回原链表
+        [head, tail] = myReverse(head, tail);
         pre.next = head;
         tail.next = nex;
         pre = tail;
-        head = tail.next;
+        head = nex;
       }
-      return hair.next;
+      return hair.next
     };
 
 
