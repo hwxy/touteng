@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 给出一个区间的集合，请合并所有重叠的区间。
+    // 输入: intervals = [[1,3],[2,6],[8,10],[15,18]]
+    // 输出: [[1,6],[8,10],[15,18]]
+    // 解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].
+
+    // 输入: intervals = [[1,4],[4,5]]
+    // 输出: [[1,5]]
+    // 解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。
+
+    /**
+     * @param {number[][]} intervals
+     * @return {number[][]}
+     */
+    var merge = function (intervals) {
+      if(!intervals.length) return intervals
+      let newIntervals = intervals.sort((a, b) => {
+        return a[0] - b[0] 
+      })
+      let i = 0
+      while(i != newIntervals.length -1){
+        let current = newIntervals[i]
+        let next = newIntervals[i+1]
+        if(current[1] < next[0]){
+          i++
+        } else {
+          newIntervals.splice(i, 2, [current[0], Math.max(current[1], next[1])])
+        }
+      }
+      return newIntervals
+    };
+    // [[1,4],[0,4]]
+    console.log(merge([[1,4],[0,4]]), 22);
+  </script>
+</body>
+
+</html>
