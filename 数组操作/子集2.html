@@ -28,25 +28,24 @@
      * @return {number[][]}
      */
     var subsets = function (nums) {
-      const t = [];
-      const ans = [];
-      const n = nums.length;
-      const dfs = (cur) => {
-        if (cur === nums.length) {
-          ans.push(t.slice());
-          return;
+      let collection = []  
+
+      function dfs(num, temp){
+        collection.push(temp.slice())
+        for(let i = num; i < nums.length; i++){
+          tempOne = nums[i]
+          temp.push(tempOne)
+          dfs(i+1, temp)
+          temp.pop()
         }
-        t.push(nums[cur]);
-        dfs(cur + 1, nums);
-        t.pop();
-        dfs(cur + 1, nums);
       }
-      dfs(0, nums);
-      return ans;
+
+      dfs(0, [])
+      return collection
     };
 
     let arr = [
-      1, 2, 3,4 
+      1, 2, 3, 4
     ]
     console.log(subsets(arr), 22);
   </script>
