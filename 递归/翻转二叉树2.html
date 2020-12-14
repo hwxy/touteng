@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /**
+     * Definition for a binary tree node.
+     * function TreeNode(val) {
+     *     this.val = val;
+     *     this.left = this.right = null;
+     * }
+     */
+    function TreeNode(val) {
+      this.val = val;
+      this.left = this.right = null;
+    }
+    let tree = new TreeNode(4)
+    tree.left = new TreeNode(2)
+    tree.right = new TreeNode(7)
+    tree.left.left = new TreeNode(1)
+    tree.left.right = new TreeNode(3)
+    tree.right.left = new TreeNode(6)
+    tree.right.right = new TreeNode(9)
+
+    /**
+     * @param {TreeNode} root
+     * @return {TreeNode}
+     */
+    var invertTree = function (tree) {
+      if(!tree) return tree
+      let left = tree.left
+      let right = tree.right
+      tree.left = invertTree(right)
+      tree.right = invertTree(left)
+      return tree
+    };
+
+    console.log(invertTree(tree), 2);
+  </script>
+</body>
+
+</html>
