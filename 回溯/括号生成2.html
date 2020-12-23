@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
+    // 输入：n = 3
+    // 输出：[
+    //       "((()))",
+    //       "(()())",
+    //       "(())()",
+    //       "()(())",
+    //       "()()()"
+    //     ]    
+    /**
+     * @param {number} n
+     * @return {string[]}
+     */
+    var generateParenthesis = function (n) {
+      let arr = []
+      for(let i = 1; i < n * 2 + 1; i++){
+        arr.push(i % 2 == 0 ? ')' : '(')
+      }
+      let collection = []
+
+      function dfs(start, tempStr){
+        if(tempStr.length == arr.length){
+          collection.push(tempStr.slice())
+          return;
+        }
+        for(let i = start; i < arr.length; i++){
+          let temp = arr[i]
+          tempStr += temp
+          dfs(start+1, tempStr)
+          tempStr = tempStr.slice(0, -1)
+        }
+      }
+
+      dfs(0, '')
+
+      let newCollection = collection.filter((item) => {
+        return isVaild(item)
+      })  
+      let s = new Set(newCollection)
+      return [...s]
+    };
+
+
+    function isVaild(str){
+      let stack = []
+      let isVaild = true
+      for(let i = 0; i < str.length; i++){
+        let temp = str[i]
+        if(temp == ')'){
+          let tempTwo = stack.pop()
+          if(tempTwo != '('){
+            isVaild = false
+            break;
+          }
+        } else {
+          stack.push('(')
+        }
+      }
+      if(stack.length > 0){
+        isVaild = false
+      }
+      return isVaild
+    }  
+    console.log(isVaild('()()))'));  
+    console.log(generateParenthesis(3));
+  </script>
+</body>
+
+</html>
