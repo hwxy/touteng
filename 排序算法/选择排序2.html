@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function swap(arr, n, m){
+      [arr[n], arr[m]] = [arr[m], arr[n]]
+    }
+
+    function selectionSort(arr){
+      let length = arr.length
+      let indexMin;
+      for(let i = 0; i < length - 1; i++){
+        indexMin = i
+        for(let j = i; j < length; j++){
+          if(arr[j] < arr[indexMin]){
+            indexMin = j
+          }
+        }
+        swap(arr, i, indexMin)
+      }
+    }
+
+    let arr = [9,4,6,7,8]
+    
+    console.log(selectionSort(arr));
+  </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function swap(arr, n, m) {
+      [arr[n], arr[m]] = [arr[m], arr[n]]
+    }
+
+    // function quick(arr, left, right) {
+    //   if (arr.length > 1) {
+    //     let middle = Math.floor((left + right) / 2)
+    //     let i = left
+    //     let j = right
+    //     while (i < j) {
+    //       if (arr[i] < arr[middle]) {
+    //         i++
+    //       }
+
+    //       if (arr[j] > arr[middle]) {
+    //         j--
+    //       }
+
+    //       if (i <= j) { 
+    //         swap(arr, i, j)
+    //         i++
+    //         j--
+    //       }
+    //     }
+    //     if (left < i - 1) { // {4} 
+    //       quick(arr, left, i - 1); // {5} 
+    //     }
+    //     if (i < right) { // {6} 
+    //       quick(arr, i, right); // {7} 
+    //     }
+    //   }
+    //   return arr
+    // }
+
+
+    function quick(array, left, right) {
+      if (array.length > 1) { // {2} 
+        // index = partition(array, left, right, compareFn); // {3} 
+        const pivot = array[Math.floor((right + left) / 2)]; // {8} 
+        let i = left; // {9} 
+        let j = right; // {10} 
+        while (i <= j) { // {11} 
+          while (array[i]< pivot) { // {12} 
+            i++;
+          }
+          while (array[j] > pivot) { // {13} 
+            j--;
+          }
+          if (i <= j) { // {14} 
+            swap(array, i, j); // {15}
+            i++;
+            j--;
+          }
+        }
+        if (left < i - 1) { // {4} 
+          quick(array, left, i - 1); // {5} 
+        }
+        if (i < right) { // {6} 
+          quick(array, i, right); // {7} 
+        }
+      }
+      return array;
+    };
+    let arr = [9, 4, 6, 7, 8]
+
+    console.log(quick(arr, 0, arr.length - 1));
+  </script>
+</body>
+
+</html>
