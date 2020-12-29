@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    function swap(arr, i, j){
+      [arr[i], arr[j]] = [arr[j], arr[i]]
+    }
+    // 冒泡排序
+    function propagation(arr){
+      for(let i = 0; i < arr.length; i++){
+        for(let j = 0; j < arr.length - i; j++){
+          if(arr[j] > arr[j+1]){
+            swap(arr, i, j+1)
+          }
+        } 
+      }
+      return arr
+    }
+
+    // console.log(propagation(arr));
+    // 选择排序
+    function select(arr){
+      for(let i = 0; i < arr.length; i++){
+        let temp = i
+        for(let j = i+1; j < arr.length; j++){
+          if(arr[temp] > arr[j]){
+            temp = j
+          }
+        }
+        swap(arr, i, temp) 
+      }
+      return arr
+    }
+    // console.log(select(arr));
+    // 插入排序
+    function insert(arr){
+      for(let i = 1; i < arr.length; i++){
+        let j = i
+        let temp = arr[j]
+        while(j - 1 >= 0 && arr[j - 1] > temp){
+          arr[j] = arr[j-1]
+          j--
+        }
+        arr[j] = temp
+      }
+
+      return arr
+    }
+    // console.log(insert(arr));
+    // 计数排序
+    function count(arr){
+      let max = Math.max.apply(null, arr)
+      let newArr = Array(max + 1)      
+      arr.forEach((item) => {
+        if(!newArr[item]){
+          newArr[item] = 0
+        }
+        newArr[item] = newArr[item] + 1
+      })
+      let collection = []
+      newArr.forEach((item, index) => {
+        let count = item || 0
+        while(count){
+          collection.push(index)
+          count--
+        }
+      })
+      return collection
+    }
+    // console.log(count(arr));
+
+    // 归并排序
+    function merge(left, right){
+      let i = 0
+      let j = 0
+      let result = []
+      while(i < left.length && j < right.length){
+        let temp = left[i]
+        let tempTwo = right[j]
+        result.push(temp > tempTwo ? tempTwo : temp)
+        temp > tempTwo ? j++ : i++
+      }
+      return i == left.length ? result.concat(right.slice(j)) : result.concat(left.slice(i))
+    }
+
+    function mergeSort(arr){
+      if(arr.length > 1){
+        let middle = Math.floor((arr.length - 1) / 2)
+        let left = mergeSort(arr.slice(0, middle + 1))
+        let right = mergeSort(arr.slice(middle + 1))
+        arr = merge(left, right)
+        return arr
+      }
+      return arr
+    }
+    
+    // console.log(mergeSort(arr));
+    // 快速排序
+    function quick(array, left, right) {
+      if (array.length > 1) { // {2} 
+        // index = partition(array, left, right, compareFn); // {3} 
+        const pivot = array[Math.floor((right + left) / 2)]; // {8} 
+        let i = left; // {9} 
+        let j = right; // {10} 
+        while (i <= j) { // {11} 
+          while (array[i]< pivot) { // {12} 
+            i++;
+          }
+          while (array[j] > pivot) { // {13} 
+            j--;
+          }
+          if (i <= j) { // {14} 
+            swap(array, i, j); // {15}
+            i++;
+            j--;
+          }
+        }
+        if (left < i - 1) { // {4} 
+          quick(array, left, i - 1); // {5} 
+        }
+        if (i < right) { // {6} 
+          quick(array, i, right); // {7} 
+        }
+      }
+      return array;
+    };
+    
+    let arr = [1,8,3,2]    
+    console.log(quick(arr, 0, arr.length - 1));
+  </script>
+</body>
+</html>
