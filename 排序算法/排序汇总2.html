@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+  let arr = [5,1,3,7]
+
+    function swap(arr, i, j){
+      [arr[i], arr[j]] = [arr[j], arr[i]]
+    }
+    // 冒泡排序
+    function propagation(arr){
+      for(let i = 0; i < arr.length; i++){
+        for(let j = 0; j < arr.length - i; j++){
+          if(arr[j] > arr[j+1]){
+            swap(arr, j, j+1)
+          }
+        }
+      }
+      return arr
+    }
+    // console.log(propagation(arr));
+    // 选择排序
+    function select(arr){
+      for(let i = 0; i < arr.length; i++){
+        let k = i
+        for(let j = i; j < arr.length; j++){
+          if(arr[j] < arr[k]){
+            k = j
+          }
+        }
+        swap(arr, i, k)
+      }
+      return arr
+    }
+    // console.log(select(arr));
+    // 插入排序
+    function insert(arr){
+      for(let i = 1; i < arr.length; i++){
+        let temp = arr[i]
+        let j = i
+        while(j > 0 && temp < arr[j-1]){
+          arr[j] = arr[j-1]
+          j--
+        }
+        arr[j] = temp
+      }
+      return arr
+    }
+    // console.log(insert([3,1,2,5,7,4]));
+    // 计数
+    function count(arr){
+      let max = Math.max.apply(null, arr)
+      let countArr = Array(max + 1)
+      arr.forEach((item) => {
+        if(countArr[item]){
+          countArr[item]++
+        } else {
+          countArr[item] = 1
+        }
+      })
+      let collection = []
+      countArr.forEach((item, index) => {
+        let count = item
+        while(count){
+          count--
+          collection.push(index)
+        }
+      })
+      return collection
+    }
+    // console.log(count([3,1,2,5,7,4]));
+    // 二分
+    function merge(left, right){
+      let i = 0
+      let j = 0
+      let collection = []
+      while(i < left.length && j < right.length){
+        let tempOne = left[i]
+        let tempTwo = right[j]
+        collection.push(tempOne > tempTwo ? tempTwo : tempOne)
+        if(tempOne > tempTwo){
+          j++
+        } else {
+          i++
+        }
+      }
+
+      return collection.concat(i < left.length ? left.slice(i) : right.slice(j))
+    }
+
+    function divide(arr){
+      if(arr.length > 1){
+        let middle = Math.floor((0 + arr.length - 1) / 2)
+        let left = divide(arr.slice(0, middle+1))
+        let right = divide(arr.slice(middle+1))
+        return merge(left, right)
+      }
+      return arr
+    }
+    // console.log(divide(arr));
+    // 快速
+    function quick(arr, left, right){
+      if (arr.length > 1) { 
+      let i = left
+      let j = right
+      let middle = Math.floor((i + j) / 2)
+      while(i <= j){
+        while(arr[i] < arr[middle]){
+          i++
+        }
+        while(arr[j] > arr[middle]){
+          j--
+        }
+        if(i <= j){
+          swap(arr, i, j)
+          i++
+          j--
+        }
+      }
+      if (left < i - 1) { // {4} 
+          quick(arr, left, i - 1); // {5} 
+        }
+        if (i < right) { // {6} 
+          quick(arr, i, right); // {7} 
+        }
+      }
+      return arr
+    }
+
+
+    console.log(quick(arr, 0, arr.length - 1));
+
+  </script>
+</body>
+</html>
