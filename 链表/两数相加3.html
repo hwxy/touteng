@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
+    // 如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
+    // 您可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+
+    // 输入：(2 -> 4 -> 3) + (5 -> 6 -> 4)
+    // 输出：7 -> 0 -> 8
+    // 原因：342 + 465 = 807
+
+
+   function ListNode(val) {
+    this.val = val;
+    this.next = null;
+   }
+
+   let l1 = new ListNode(2)
+   let l14 = new ListNode(4)
+   let l13 = new ListNode(3)
+   l1.next = l14
+   l14.next = l13
+   
+  //   [9,9,9,9,9,9,9]
+  //   [9,9,9,9]
+   let l2 = new ListNode(5)
+   let l16 = new ListNode(6)
+  //  let l124 = new ListNode(4)
+   l2.next = l16
+  //  l16.next = l124
+   
+    var addTwoNumbers = function(l1, l2) {
+      let l3 = null
+      let temp = l1
+      let temp2 = l2
+      let temp3 = l3
+      let add = 0
+      while(temp || temp2){
+        let value1 = temp ? temp.val : 0
+        let value2 = temp2 ? temp2.val : 0
+        let value3 = (value1 + value2 + add) % 10
+        add = ((value1 + value2 + add) / 10) | 0
+        temp = temp ? temp.next : null
+        temp2 = temp2 ? temp2.next : null
+        if(!l3){
+          l3 = new ListNode(value3)
+          temp3 = l3
+        } else {
+          temp3.next = new ListNode(value3)
+          temp3 = temp3.next
+        }
+      }
+      if(add){
+        temp3.next = new ListNode(add)
+      }
+      return l3
+    };
+
+    console.log(addTwoNumbers(l1, l2));
+
+  </script>
+</body>
+</html>
