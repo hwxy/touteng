@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。
+    // 输入：nums = [-1,2,1,-4], target = 1
+    // 输出：2
+    // 解释：与 target 最接近的和是 2 (-1 + 2 + 1 = 2) 
+    /**
+     * @param {number[]} nums
+     * @param {number} target
+     * @return {number}
+     */
+    var threeSumClosest = function (nums, target) {
+      if(nums.length < 3) return null
+      let ns = nums.sort((a, b) => {
+        return (a - b)
+      })
+      let min = Number.MAX_VALUE
+      for(let i = 0; i < ns.length - 2; i++){
+        let j = i + 1
+        let k = nums.length - 1
+        while(j < k){
+          let sum = ns[i] + ns[j] + ns[k]
+          if(sum > target){
+            k--
+          } else {
+            j++
+          }
+          let diff = Math.abs(min - target) - Math.abs(sum - target)
+          if(diff > 0){
+            min = sum
+          }
+        }
+      }
+      return min
+    };
+  
+
+    console.log(threeSumClosest([-100,-98,-2,-1], -101));
+    console.log(threeSumClosest([-1,2,1,-4], 1));
+    console.log(threeSumClosest([1,1,-1], 1));
+    console.log(threeSumClosest([1,1,1,0], -100));
+    // [1,1,1,0]
+    // [1,1,-1]
+  </script>
+</body>
+
+</html>
