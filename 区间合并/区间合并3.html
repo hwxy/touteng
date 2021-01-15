@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 给出一个区间的集合，请合并所有重叠的区间。
+    // 输入: intervals = [[1,3],[2,6],[8,10],[15,18]]
+    // 输出: [[1,6],[8,10],[15,18]]
+    // 解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].
+
+    // 输入: intervals = [[1,4],[4,5]]
+    // 输出: [[1,5]]
+    // 解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。
+
+    /**
+     * @param {number[][]} intervals
+     * @return {number[][]}
+     */
+    var merge = function (intervals) {
+      let newIntervals = intervals.sort((a, b) => {
+        return a[0] - b[0]
+      })
+      let i = 1
+      while(i < newIntervals.length){
+        let prev = newIntervals.splice(i - 1, 1)[0]
+        let after = newIntervals.splice(i - 1 , 1)[0]
+        let prevOne = prev[0]
+        let prevTwo = prev[1]
+        let afterOne = after[0]
+        let afterTwo = after[1]
+        if(afterTwo <= prevTwo){
+          let arr = [prevOne, prevTwo]
+          newIntervals.splice(i - 1, 0, arr)
+        } else if(afterOne <= prevTwo && afterTwo > prevTwo){
+          let arr = [prevOne, afterTwo]
+          newIntervals.splice(i - 1, 0, arr)
+        } else {
+          newIntervals.splice(i - 1, 0, prev, after)
+          i++
+        }
+      }  
+      return newIntervals
+    };
+    console.log(merge([[1,4],[1,3], [2, 5]]), 22);
+  </script>
+</body>
+
+</html>
