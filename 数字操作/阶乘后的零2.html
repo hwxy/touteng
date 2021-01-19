@@ -22,16 +22,12 @@
      * @return {number}
      */
     var trailingZeroes = function (n) {
-      let sum = 0
-      while(n){
-        let ns = n
-        while(ns % 5 == 0){
-          ns = ns / 5
-          sum++
-        }
-        n--
+      var count = 0
+      while (n >= 5) {
+        count += n / 5 | 0
+        n /= 5
       }
-      return sum
+      return count
     };
 
     console.log(trailingZeroes(3));
