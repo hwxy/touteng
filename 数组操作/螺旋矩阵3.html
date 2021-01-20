@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 给定一个包含 m x n 个元素的矩阵（m 行, n 列），请按照顺时针螺旋顺序，返回矩阵中的所有元素。
+    // 输入:
+    // [
+    // [ 1, 2, 3 ],
+    // [ 4, 5, 6 ],
+    // [ 7, 8, 9 ]
+    // ]
+    // 输出: [1,2,3,6,9,8,7,4,5]
+    //   输入:
+    //   [
+    //     [1, 2, 3, 4],
+    //     [5, 6, 7, 8],
+    //     [9,10,11,12]
+    //   ]
+    // 输出: [1,2,3,4,8,12,11,10,9,5,6,7]
+    /**
+     * @param {number[][]} matrix
+     * @return {number[]}
+     */
+
+    var spiralOrder = function(matrix) {
+      let collection = []
+      let i = 0
+      let j = 0
+      let direction = 'right'
+      let m = matrix.length
+      let n = matrix[0].length
+      while(true){
+        let temp = matrix[i] ? matrix[i][j] : undefined
+        if(collection.indexOf(temp) != -1 || temp == undefined){
+          break;
+        }
+        collection.push(temp)
+        if(direction == 'right') {
+          j++
+          let temp = matrix[i] ? matrix[i][j] : undefined
+          if(collection.indexOf(temp) != -1 || temp == undefined){
+            direction = 'bottom'
+            j--
+            i++
+          }
+        } else if(direction == 'left') {
+          j--
+          let temp = matrix[i] ? matrix[i][j] : undefined
+          if(collection.indexOf(temp) != -1 || temp == undefined){
+            direction = 'top'
+            i--
+            j++
+          }
+        } else if(direction == 'bottom') {
+          i++
+          let temp = matrix[i] ? matrix[i][j] : undefined
+          if(collection.indexOf(temp) != -1 || temp == undefined){
+            direction = 'left'
+            i--
+            j--
+          }
+        } else if(direction == 'top') {
+          i--
+          let temp = matrix[i] ? matrix[i][j] : undefined
+          if(collection.indexOf(temp) != -1 || temp == undefined){
+            direction = 'right'
+            i++
+            j++
+          }
+        }
+      }
+      return collection
+    };
+
+    let arr = [
+      [ 1, 2, 3 ],
+      [ 4, 5, 6 ],
+      [ 7, 8, 9 ]
+    ]
+
+    let arr2 = [
+      [1, 2, 3, 4],
+      [5, 6, 7, 8],
+      [9,10,11,12],
+      [13,14,15,16]
+    ]
+    // arr2
+    let arr3 = [[2,5],[8,4],[0,-1]]
+    console.log(spiralOrder(arr3));
+  </script>
+</body>
+
+</html>
