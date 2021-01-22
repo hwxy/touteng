@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 输入: "()"
+    // 输出: true
+
+    // 输入: "()[]{}"
+    // 输出: true
+
+    // 输入: "(]"
+    // 输出: false
+
+    // 输入: "([)]"
+    // 输出: false
+
+    /**
+     * @param {string} s
+     * @return {boolean}
+     */
+    // '('，')'，'{'，'}'，'['，']' 的字符串
+    var isValid = function (s) {
+      let obj = {
+        '(' : ')',
+        '{' : '}',
+        '[' : ']'
+      }
+      let collection = []
+      let judge = true
+      for(let i = 0; i < s.length; i++){
+        let temp = s[i]
+        let str = obj[temp]
+        if(str){
+          collection.push(temp)
+        } else {
+          let s = collection.pop()
+          if(obj[s] != temp){
+            judge = false
+            break;
+          }
+        }
+      }
+      return judge && collection.length == 0
+    };
+    // "(("
+    console.log(isValid("()[]{}"));
+  </script>
+</body>
+
+</html>
