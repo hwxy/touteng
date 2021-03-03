@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+    <script>
+      // function Node(val){
+      //   this.val = val
+      //   this.left = null
+      //   this.right = null
+      // }
+
+      // class avl{
+      //   constructor(){
+      //     this.root = null
+      //   }
+        
+      //   insertNode(val){
+      //     let node = new Node(val)
+      //     if(!this.root){
+      //       this.root = node
+      //     } else {
+      //       this.root = this.insert(this.root, node)
+      //     }
+      //   }
+
+      //   insert(node, insertnode){
+      //     if(node && node.val > insertnode.val){
+      //       node.left = this.insert(node.left, insertnode)
+      //       return node
+      //     } else if(node && node.val < insertnode.val){
+      //       node.right = this.insert(node.right, insertnode)
+      //       return node
+      //     } else {
+      //       return insertnode
+      //     }
+      //   }
+      // }
+
+      // let av = new avl()
+
+      // av.insertNode(5)
+      // av.insertNode(4)
+      // av.insertNode(6)
+      // av.insertNode(8)
+      // av.insertNode(10)
+      // console.log(av, 22);
+
+    //   输入：n = 4, leftChild = [1,-1,3,-1], rightChild = [2,-1,-1,-1]
+    // 输出：true
+      var validateBinaryTreeNodes = function(n, leftChild, rightChild) {
+          let isValid = true
+          let collection = []
+          for(let i = 0; i < n; i++){
+            let left = leftChild[i]
+            let right = rightChild[i]
+          }
+      };
+
+      console.log(validateBinaryTreeNodes(4, [1,-1,3,-1], [2,-1,-1,-1]));
+    </script>
+</body>
+</html>

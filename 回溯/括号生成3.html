@@ -23,8 +23,55 @@
      * @return {string[]}
      */
     var generateParenthesis = function (n) {
-        
+        let arr = []
+        for(let i = 0; i < n; i++){
+          arr.push('(')
+          arr.push(')')
+        }
+        let collection = []
+        let isValid = (arr3) => {
+          let obj = {
+            ')' : '('
+          }
+          let stack = []
+          let v = true
+          for(let i = 0; i < arr3.length; i++){
+            let str = arr3[i]
+            if(str in obj){
+              let temp = stack.pop()
+              if(!temp){
+                v = false
+                break;
+              }
+            } else {
+              stack.push('(')
+            }
+          }
+          if(!!stack.length) return false
+          return v
+        }
+
+        let dfs = (start, arr2) => {
+          if(arr2.length == arr.length){
+            let s = arr2.join('')
+            if(isValid(arr2) && collection.indexOf(s) == -1){
+              collection.push(s)
+            }
+            return
+          }
+          for(let i = start; i < arr.length; i++){
+            let temp = arr[i]
+            arr2.push(temp)
+            dfs(start+1, arr2)
+            arr2.pop()
+          }
+        }
+        dfs(0, [])
+        return collection
     };
+
+
+    console.log(generateParenthesis(3));
   </script>
 </body>
 

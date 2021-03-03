@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function swap(arr, i, j) {
+      [arr[i], arr[j]] = [arr[j], arr[i]]
+    }
+    // 冒泡排序
+    function bubble(arr) {
+      for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length - i - 1; j++) {
+          if (arr[j] > arr[j + 1]) {
+            swap(arr, j, j + 1)
+          }
+        }
+      }
+      return arr
+    }
+    let arr = [5, 6, 1, 2, 7]
+    // console.log(bubble(arr));
+    // 选择排序
+    function select(arr) {
+      for (let i = 0; i < arr.length; i++) {
+        let min = i
+        for (let j = i; j < arr.length; j++) {
+          if (arr[j] < arr[min]) {
+            min = j
+          }
+        }
+        swap(arr, min, i)
+      }
+      return arr
+    }
+    // console.log(select(arr));
+    // 插入排序
+    function insert(arr) {
+      for (let i = 1; i < arr.length; i++) {
+        let j = i; // {3} 
+        temp = arr[i]; // {4} 
+        while (j > 0 && arr[j - 1] > temp) { // {5} 
+          arr[j] = arr[j - 1]; // {6} 
+          j--;
+        }
+        arr[j] = temp; // {7} 
+      }
+      return arr
+    }
+    // console.log(insert(arr));
+    // 计数排序
+    function count(arr) {
+      let max = Math.max.apply(null, arr)
+      let newArr = Array(max + 1)
+
+      for (let i = 0; i < arr.length; i++) {
+        let temp = newArr[arr[i]]
+        if (!temp) {
+          newArr[arr[i]] = 1
+        } else {
+          newArr[arr[i]] = 1 + newArr[arr[i]]
+        }
+      }
+
+
+      let collection = []
+      for (let i = 0; i < newArr.length; i++) {
+        let count = newArr[i]
+        if (count) {
+          while (!!count) {
+            collection.push(i)
+            count--
+          }
+        }
+      }
+      return collection
+    }
+
+    // console.log(count(arr));
+
+
+    // 归并排序
+    function sort(arr1, arr2) {
+      let m = arr1.length - 1
+      let n = arr2.length - 1
+      let i = 0
+      let j = 0
+      let arr = []
+      while (i <= m && j <= n) {
+        let temp = arr1[i]
+        let tempTwo = arr2[j]
+        if (temp < tempTwo) {
+          arr.push(temp)
+          i++
+        } else {
+          arr.push(tempTwo)
+          j++
+        }
+      }
+      return i == m + 1 ? [...arr, ...arr2.slice(j)] : [...arr, ...arr1.slice(i)]
+    }
+
+    function concat(arr) {
+      if (arr.length > 1) {
+        let middleware = Math.floor((arr.length - 1) / 2)
+        let left = concat(arr.slice(0, middleware + 1))
+        let right = concat(arr.slice(middleware + 1))
+        let newarr = sort(left, right)
+        return newarr
+      }
+      return arr
+    }
+    // console.log(concat(arr));  
+
+    // 快速排序
+    function partition(array, left, right) {
+      const pivot = array[Math.floor((right + left) / 2)]; // {8} 
+      let i = left; // {9} 
+      let j = right; // {10} 
+      while (i <= j) { // {11} 
+        while (array[i] < pivot) { // {12} 
+          i++;
+        }
+        while (array[j] > pivot) { // {13} 
+          j--;
+        }
+        if (i <= j) { // {14} 
+          swap(array, i, j); // {15}
+          i++;
+          j--;
+        }
+      }
+      return i; // {16} 
+    }
+
+    function quick(array, left, right) {
+      let index; // {1} 
+      if (array.length > 1) { // {2} 
+        index = partition(array, left, right); // {3} 
+        if (left < index - 1) { // {4} 
+          quick(array, left, index - 1); // {5} 
+        }
+        if (index < right) { // {6} 
+          quick(array, index + 1, right); // {7} 
+        }
+      }
+      return array;
+    };
+
+    console.log(quick(arr, 0, arr.length - 1));
+  </script>
+</body>
+
+</html>
