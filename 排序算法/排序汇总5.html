@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function swap(arr, i, j){
+      [arr[i], arr[j]] = [arr[j], arr[i]]
+    }
+    let arr = [5,6,1,2,3,4]
+    // 冒泡排序
+    function bubble(arr){
+      for(let i = 0; i < arr.length; i++){  
+        for(let j = 0; j < arr.length - i - 1; j++){
+          if(arr[j] > arr[j+1]){
+            swap(arr, j, j+1)
+          }
+        }
+      }
+      return arr
+    }    
+    // console.log(bubble(arr));
+    // 选择排序
+    function select(arr){
+      for(let i = 0; i < arr.length; i++){  
+        let temp = i
+        for(let j = temp + 1; j < arr.length; j++){  
+          if(arr[temp] > arr[j]) {
+            temp = j
+          }
+        }
+        swap(arr, temp, i)
+      }
+      return arr
+    }
+    // console.log(select(arr));
+    // [5,6,1,2,3]
+    // [5,5,6]
+    // 插入排序
+    function insert(arr){
+      for(let i = 1; i < arr.length; i++){  
+        let temp = arr[i]
+        let j = i
+        while(j >= 1 && arr[j - 1] > temp){
+          arr[j] = arr[j - 1]
+          j--
+        }
+        arr[j] = temp
+      }
+      return arr
+    }
+    // console.log(insert(arr));
+    // 计数排序
+    function count(arr){
+      let max = Math.max.apply(null, arr)
+      let countArr = Array(max + 1)
+      for(let i = 0; i < arr.length; i++){
+        let temp = arr[i]
+        if(countArr[temp]){
+          countArr[temp]++
+        } else {
+          countArr[temp] = 1
+        }
+      }
+
+      let collection = []
+      for(let j = 0; j < countArr.length; j++){
+        let count = countArr[j]
+        while(count){
+          collection.push(j)
+          count--
+        }
+      }
+
+      return collection
+    }
+    // console.log(count(arr));
+
+    // 归并排序
+    function help(left, right){
+      let m = left.length
+      let n = right.length
+      let i = 0
+      let j = 0
+      let collection = []
+      while(i < m && j < n){
+        let tempOne = left[i]
+        let tempTwo = right[j]
+        if(tempOne > tempTwo){
+          collection.push(tempTwo)
+          j++
+        } else {
+          collection.push(tempOne)
+          i++
+        }
+      }
+      return i == m ? collection.concat(right.slice(j)) : collection.concat(left.slice(i))
+    }
+
+    function concatArr(arr) {
+      if(arr.length > 1){
+        let middle = Math.floor((arr.length - 1) / 2)
+        let left = concatArr(arr.slice(0, middle + 1))
+        let right = concatArr(arr.slice(middle + 1))
+        return help(left, right)
+      }
+      return arr 
+    }
+
+    // console.log(concatArr(arr));
+    // 快速排序
+    function quickHelp(arr, left , right){
+      let i = left
+      let j = right
+      let middle = arr[Math.floor((left + right) / 2)]
+      while(i <= j){
+        while(arr[i] < middle){
+          i++;
+        }
+
+        while(arr[j] > middle){
+          j--;
+        }
+
+        if(i <= j){
+          swap(arr, i, j);
+          i++;
+          j--;
+        }
+      } 
+      return i;
+    }
+
+    function quick(arr, left, right){
+      if(arr.length > 1){
+        let index = quickHelp(arr, left , right)
+        if(left < index - 1){
+          quick(arr, left, index - 1)
+        }
+
+        if(right > index){
+          quick(arr, index, right)
+        }
+      }
+      return arr
+    }
+
+    // console.log(quick(arr, 0, arr.length - 1));
+  </script>
+</body>
+</html>
