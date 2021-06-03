@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 阶乘后的零
+    // 给定一个整数 n，返回 n! 结果尾数中零的数量。
+    // 输入: 3
+    // 输出: 0
+    // 解释: 3! = 6, 尾数中没有零。
+    // 输入: 5
+    // 输出: 1
+    // 解释: 5! = 120, 尾数中有 1 个零.
+    /**
+     * @param {number} n
+     * @return {number}
+     */
+    // 数字过大会有问题
+    //   找0==》找2和5
+    // 2的数量肯定比5多 而且比5出现早
+    // 5的数量需要从 两方面找：1.尾数5/10找 2.因数中找
+    var trailingZeroes = function (n) {
+      let count = 0
+      while(n >= 5) {
+        count += n / 5 | 0
+        n /= 5
+      }
+      return count
+    };
+
+    console.log(trailingZeroes(30));
+  </script>
+</body>
+
+</html>
