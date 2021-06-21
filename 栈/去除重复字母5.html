@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 给你一个仅包含小写字母的字符串，请你去除字符串中重复的字母，使得每个字母只出现一次。需保证返回结果的字典序最小（要求不能打乱其他字符的相对位置）。 -->
+  <!-- 输入: "bcabc" 输出: "abc" -->
+  <!-- 输入: "cbacdcbc" 输出: "acdb" -->
+  <script>
+    /**
+     * @param {string} s
+     * @return {string}
+     */
+    var removeDuplicateLetters = function (s) {
+      if(s.length <= 1 ) return s
+      let stack = [s[0]]
+
+      for(let i = 0; i < s.length; i++) {
+        let str = s[i]
+        if(stack.indexOf(str) != -1) {
+          continue;
+        }
+        let charCodeAt = str.charCodeAt()
+        while(true) {
+          let temp = stack.pop()
+          let charCodeAtTwo = temp.charCodeAt()
+          if(charCodeAt < charCodeAtTwo) {
+            let ns = s.slice(i+1)
+            if(ns.indexOf(temp) == -1) {
+              stack.push(temp)
+              break;
+            }
+            if(stack.length == 0) {
+              break
+            }
+          } else {
+            stack.push(temp)
+            break
+          } 
+        }
+          stack.push(str)
+      }
+      return stack.join('')
+    }
+
+    let str = "bcabc"
+    let str1 = "cbacdcbc"
+    console.log(removeDuplicateLetters(str), removeDuplicateLetters(str1));
+  </script>
+</body>
+
+</html>
