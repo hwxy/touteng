@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+    // 输入: [-2,1,-3,4,-1,2,1,-5,4]
+    // 输出: 6
+    // 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
+    /**
+     * @param {number[]} nums
+     * @return {number}
+     */
+    var maxSubArray = function (nums) {
+      let dp = Array.from({
+        length: nums.length
+      }, () => {
+        return Array(nums.length).fill(Number.MIN_VALUE);
+      })
+
+      let max = -Number.MAX_VALUE;
+
+      for(let i = nums.length - 1; i >= 0; i--){
+        for(let j = nums.length - 1; j >= i; j--){
+          let numItem = nums[i]
+          if(j - i == 0) {
+            dp[i][j] = numItem
+            max = Math.max(dp[i][j], max)
+          } else {
+            dp[i][j] = numItem + (dp[i+1][j] ? dp[i+1][j] : 0); 
+            max = Math.max(dp[i][j], max)
+          }
+        }
+      }
+
+      return max
+    };
+
+    console.log(maxSubArray([-2,1,-3,4,-1,2,1,-5,4]));
+  </script>
+</body>
+
+</html>
