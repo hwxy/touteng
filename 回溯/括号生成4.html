@@ -23,17 +23,14 @@
      * @return {string[]}
      */
     var generateParenthesis = function (n) {
-        let arr = []
-        for(let i = 0; i < n; i++){
-          arr.push('(')
-          arr.push(')')
-        }
+      let arr = []
+      for(let i = 0; i < n; i++) {
+        arr.push("(", ')');
+      } 
+      
+      let arrTwo = [];
 
-
-        let collection = []
-
-        
-        let isValid = (arr3) => {
+      let isValid = (arr3) => {
           let obj = {
             ')' : '('
           }
@@ -55,23 +52,26 @@
           return v
         }
 
-        let dfs = (start, arr2) => {
-          if(arr2.length == arr.length){
-            let s = arr2.join('')
-            if(isValid(arr2) && collection.indexOf(s) == -1){
-              collection.push(s)
-            }
-            return
+      function dfs(index, collection){
+        if(collection.length == arr.length) {
+          let s = collection.join('');
+          if(arrTwo.indexOf(s) == -1 && isValid(s)) {
+            arrTwo.push(s);
           }
-          for(let i = start; i < arr.length; i++){
-            let temp = arr[i]
-            arr2.push(temp)
-            dfs(start+1, arr2)
-            arr2.pop()
-          }
+          return;
         }
-        dfs(0, [])
-        return collection
+
+        for(let i = index; i < arr.length; i++) {
+          let temp = arr[i];
+          collection.push(temp);
+          dfs(index + 1, collection);
+          collection.pop();
+        }
+      }
+
+      dfs(0, [])
+
+      return arrTwo
     };
 
 
